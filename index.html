@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運動員個人網站</title>
+    <!-- 使用 Tailwind CSS CDN 進行快速響應式排版 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 使用 Font Awesome CDN 引入社群媒體圖標 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入具有哥德風格的字體 Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
+    <style>
+        /* 定義主體和背景樣式 */
+        body {
+            font-family: 'Playfair Display', 'Noto Serif TC', serif;
+            color: #d1d5db; /* 淺灰色文字 */
+            background-color: #0d0d0d;
+            background-image: url('https://images.unsplash.com/photo-1627993077673-c603b51d6542?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* 創造視差效果 */
+        }
+        
+        /* 哥德式邊框裝飾 */
+        .gothic-border {
+            border: 2px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #4b5563, #374151, #4b5563);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .gothic-border:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* 按鈕特殊樣式與陰影 */
+        .gothic-button {
+            transition: transform 0.2s, box-shadow 0.2s, border-image-source 0.2s;
+        }
+
+        .gothic-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
+            border-image-source: linear-gradient(to right, #78716c, #a8a29e, #78716c);
+        }
+
+        /* 簡單的按鈕點擊動態 */
+        .gothic-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+        }
+
+        /* 連結區塊的漸變邊框動畫 */
+        .link-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            background-origin: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            animation: border-animate 4s linear infinite;
+        }
+
+        .link-container::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            bottom: -5px;
+            left: -5px;
+            background: linear-gradient(45deg, #a8a29e, #3f3f46, #4b5563, #a8a29e);
+            z-index: -1;
+            border-radius: 0.75rem;
+        }
+
+        @keyframes border-animate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 複製成功的訊息樣式 */
+        #copy-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: #d1d5db;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        #copy-message.show {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 flex flex-col items-center justify-center min-h-screen p-4 md:p-8">
+
+    <!-- 主頁面容器 -->
+    <div class="w-full max-w-2xl bg-black bg-opacity-70 backdrop-blur-sm rounded-3xl p-6 md:p-12 gothic-border shadow-xl text-center">
+        
+        <!-- 個人頭像與標題 -->
+        <div class="flex flex-col items-center mb-8">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-gray-500 shadow-xl mb-4">
+                <!-- 放置您的個人頭像圖片，使用 placehold.co 作為範例 -->
+                <img src="https://placehold.co/160x160/211321/e0e0e0?text=Athlete" alt="運動員頭像" class="object-cover w-full h-full">
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-wide leading-tight text-white mb-2">球場之王</h1>
+            <p class="text-xl md:text-2xl font-light text-gray-400">籃球 & 足球運動員</p>
+        </div>
+
+        <!-- 核心聯絡資訊區塊 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <a href="https://github.com/your-github-profile" target="_blank" rel="noopener noreferrer" class="gothic-button flex items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                <i class="fab fa-github fa-2x text-white mr-3"></i>
+                <span class="text-lg font-semibold">GitHub</span>
+            </a>
+            <button id="email-button" class="gothic-button flex items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                <i class="fas fa-envelope fa-2x text-white mr-3"></i>
+                <span class="text-lg font-semibold">Email</span>
+            </button>
+            <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" class="gothic-button flex items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                <i class="fab fa-linkedin fa-2x text-white mr-3"></i>
+                <span class="text-lg font-semibold">LinkedIn</span>
+            </a>
+        </div>
+
+        <!-- 類 Linktree 社交媒體連結區塊 -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-white">社群連結</h2>
+            <div class="link-container p-1 rounded-xl">
+                <div class="flex flex-col space-y-4 p-6 bg-black bg-opacity-70 rounded-lg shadow-lg">
+                    <a href="https://www.instagram.com/your-instagram-profile" target="_blank" rel="noopener noreferrer" class="gothic-button flex items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                        <i class="fab fa-instagram fa-2x text-white mr-3"></i>
+                        <span class="text-lg font-semibold">Instagram</span>
+                    </a>
+                    <a href="https://www.youtube.com/your-youtube-channel" target="_blank" rel="noopener noreferrer" class="gothic-button flex items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                        <i class="fab fa-youtube fa-2x text-white mr-3"></i>
+                        <span class="text-lg font-semibold">YouTube</span>
+                    </a>
+                    <a href="https://www.facebook.com/your-facebook-page" target="_blank" rel="noopener noreferrer" class="gothic-button flex items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300">
+                        <i class="fab fa-facebook-f fa-2x text-white mr-3"></i>
+                        <span class="text-lg font-semibold">Facebook</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 複製成功訊息 -->
+    <div id="copy-message" class="hidden">已複製電子郵件地址！</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailButton = document.getElementById('email-button');
+            const copyMessage = document.getElementById('copy-message');
+
+            emailButton.addEventListener('click', () => {
+                // 將這裡替換成您的電子郵件地址
+                const emailAddress = "your.email@example.com"; 
+
+                // 創建一個臨時的 input 元素來複製文本
+                const tempInput = document.createElement('input');
+                tempInput.value = emailAddress;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showMessage(copyMessage, '已複製電子郵件地址！');
+                    } else {
+                        showMessage(copyMessage, '複製失敗，請手動複製。');
+                    }
+                } catch (err) {
+                    showMessage(copyMessage, '複製失敗，請手動複製。');
+                    console.error('複製命令失敗', err);
+                }
+                
+                document.body.removeChild(tempInput);
+            });
+
+            function showMessage(element, text) {
+                element.textContent = text;
+                element.classList.remove('hidden');
+                element.classList.add('show');
+                setTimeout(() => {
+                    element.classList.remove('show');
+                    element.classList.add('hidden');
+                }, 2000);
+            }
+        });
+    </script>
+
+</body>
+</html>
